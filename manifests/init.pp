@@ -16,6 +16,24 @@
 # [*userconfigs*]
 #   A hash of urlwatch::userconfig resources to realize.
 #
+# == Examples
+#
+# An example using Hiera:
+#
+#   classes:
+#     - urlwatch
+#   
+#   urlwatch::userconfigs:
+#     john:  
+#       urls:
+#         wiki:
+#           url: 'wiki.domain.com':
+#           # The wiki frontpage contains a timestamp which changes on every 
+#           # fetch, so we need to filter it out.
+#           filter: '[0-9]* (year|month|week|day|hour|minute)s{0,1} ago'
+#         website:
+#           url: 'www.domain.com'
+#
 # == Authors
 #
 # Samuli Seppänen <samuli@openvpn.net>

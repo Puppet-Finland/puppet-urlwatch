@@ -1,12 +1,12 @@
 # urlwatch
 
-A Puppet module for managing urlwatch
+A Puppet module for managing urlwatch. This module also supports urlwatch's 
+built-in filtering features (hooks.py).
 
 # Module usage
 
 * [Class: urlwatch](manifests/init.pp)
 * [Define: urlwatch::userconfig](manifests/userconfig.pp)
-* [Define: urlwatch::url](manifests/url.pp)
 
 # Dependencies
 

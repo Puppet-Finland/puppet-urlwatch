@@ -10,7 +10,11 @@
 # [*ensure*]
 #   Whether this user's configurations should be 'present' (default) or 'absent'
 # [*urls*]
-#   An array of URLs to monitor.
+#   A hash, where the attribute "url" defines the URL to monitor and the 
+#   optional attribute "filter" defines a Python regular expression to be passed 
+#   on to re.sub() in hooks.py. This allows removal of trivially changing parts 
+#   of the web page before making comparisons. A typical example is a constantly 
+#   timestamp or time entry such as "Modified by johndoe 2 weeks ago".
 # [*use_cron*]
 #   Add a crontab entry for urlwatch. Valid values are true (default) and false. 
 #   Use ::postfix::mailaliases to ensure that this system user's email is 
@@ -35,7 +39,11 @@ define urlwatch::userconfig
 {
     include ::urlwatch::params
 
+    # Base directory for urlwatch configuration
     $basedir = "${::os::params::home}/${system_user}/.urlwatch"
+
+    # This is where hooks.py is stored
+    $libdir = "${basedir}/lib"
 
     File {
         owner  => $system_user,
@@ -49,6 +57,13 @@ define urlwatch::userconfig
         ensure => directory,
         name   => $basedir,
         mode   => '0755',
+    }
+
+    file { "urlwatch-${libdir}":
+        ensure  => directory,
+        name    => $libdir,
+        mode    => '0755',
+        require => File["urlwatch-${basedir}"],
     }
 
     if $use_cron {
@@ -71,13 +86,17 @@ define urlwatch::userconfig
         file { "urlwatch-${basedir}/urls.txt":
             ensure  => present,
             name    => "${basedir}/urls.txt",
+            content => template('urlwatch/urls.txt.erb'),
             mode    => '0644',
             require => File["urlwatch-${basedir}"],
         }
 
-        urlwatch::url { $urls:
+        file { "urlwatch-${libdir}/hooks.py":
             ensure  => $ensure,
-            basedir => $basedir,
+            name    => "${libdir}/hooks.py",
+            content => template('urlwatch/hooks.py.erb'),
+            mode    => '0644',
+            require => File["urlwatch-${libdir}"],
         }
     }
 }

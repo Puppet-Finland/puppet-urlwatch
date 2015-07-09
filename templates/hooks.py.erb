@@ -1,0 +1,13 @@
+### THIS FILE IS MANAGED BY PUPPET. ANY MANUAL CHANGES WILL GET OVERWRITTEN.
+
+import re
+from urlwatch import ical2txt
+from urlwatch import html2txt
+
+def filter(url, data):
+<% @urls.each_pair do |title, attributes| -%><% if attributes['filter'] %>
+    if url == '<%= attributes['url'] %>':
+        return re.sub('<%= attributes['filter'] %>', 'removed by urlwatch hooks.py', data)
+<% end %><% end -%>
+    return data
+
