@@ -1,6 +1,6 @@
 {
   "name": "puppetfinland-urlwatch",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Puppet-Finland team",
   "summary": "Install and configure urlwatch",
   "license": "BSD-2-Clause",
