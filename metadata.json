@@ -2,7 +2,7 @@
   "name": "puppetfinland-urlwatch",
   "version": "0.2.0",
   "author": "Puppet-Finland team",
-  "license": "BSD license",
+  "license": "BSD-2-Clause",
   "summary": "Setup urlwatch",
   "source": "https://github.com/Puppet-Finland/urlwatch.git",
   "project_page": "https://github.com/Puppet-Finland/urlwatch",
