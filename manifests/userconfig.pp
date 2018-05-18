@@ -28,13 +28,13 @@
 #
 define urlwatch::userconfig
 (
-    $system_user = $title,
-    $ensure = 'present',
-    $urls = undef,
-    $use_cron = true,
-    $hour = 9,
-    $minute = 15,
-    $weekday = '*'
+    String                   $system_user = $title,
+    Enum['present','absent'] $ensure = 'present',
+    Optional[Hash]           $urls = undef,
+    Boolean                  $use_cron = true,
+    Variant[Integer,String]  $hour = 9,
+    Variant[Integer,String]  $minute = 15,
+    Variant[Integer,String]  $weekday = '*'
 )
 {
     include ::urlwatch::params

@@ -5,7 +5,7 @@
 #
 class urlwatch::install
 (
-    $ensure
+    Enum['present','absent'] $ensure
 
 ) inherits urlwatch::params
 {
