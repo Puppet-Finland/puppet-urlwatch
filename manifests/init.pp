@@ -29,7 +29,7 @@
 class urlwatch
 (
     Boolean                  $manage = true,
-    Boolean                  $manage_config = 'yes',
+    Boolean                  $manage_config = true,
     Enum['present','absent'] $ensure = 'present',
     Hash                     $userconfigs = {}
 
